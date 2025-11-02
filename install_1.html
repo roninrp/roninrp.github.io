@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Installation | RoninRP</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Your main site CSS -->
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        header {
+            background-color: #24292e;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        main {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        nav.sidebar {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        nav.sidebar h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+
+        nav.sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        nav.sidebar li {
+            margin: 0.5rem 0;
+        }
+
+        nav.sidebar a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        nav.sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        section.content {
+            flex: 3;
+        }
+
+        .package-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-card h3 {
+            margin-top: 0;
+            color: #24292e;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            main {
+                flex-direction: column;
+            }
+
+            nav.sidebar {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<style>
+.code-block {
+  max-width: 800px;        /* limit the width of the code block */
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  
+  overflow-x: auto;         /* horizontal scroll for long lines */
+  white-space: pre;         /* preserve spacing and prevent wrapping */
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+</style> 
+<body>
+    <header>
+        <h1>Solar wind package setup guide</h1>
+    </header>
+
+    <main>
+        <nav class="sidebar">
+            <h2>Packages</h2>
+            <ul>
+                <li><a href="#package1">uv package manager</a></li>
+                <li><a href="#package2">torch with xpu</a></li>
+                <li><a href="#package3">other packages</a></li>
+                <li><a href="#package4">executing code</a></li>
+            </ul>
+            <a href="/projects.html" class="back-link">← Back to Projects</a>
+        </nav>
+
+        <section class="content">
+            <div class="package-card" id="package1">
+                <h3>uv package manager</h3>
+                <p>Install using curl:</p>
+                <pre class="code-block"><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+                <p>Or.</p>
+                <p>Install using wget:</p>
+                <pre class="code-block"><code>wget -qO- https://astral.sh/uv/install.sh | sh</code></pre>
+                <p>Initilize environment in a desired folder :</p>
+                <pre class="code-block"><code>uv init --python 3.11.6</code></pre>
+                <pre class="code-block"><code>uv python pin 3.11.6</code></pre>
+                <pre class="code-block"><code>uv sync</code></pre>
+            </div>
+
+            <div class="package-card" id="package2">
+                <h3> torch with intel xpu support</h3>
+                <p>Add torch and related packages with xpu support. Similar step to be repeated if you rely on cuda:</p>
+                 <pre  class="code-block"><code>uv add torch==2.7.1+xpu torchvision==0.22.1+xpu torchaudio==2.7.1+xpu intel-cmplr-lib-rt intel-cmplr-lib-ur intel-cmplr-lic-rt intel-sycl-rt pytorch-triton-xpu tcmlib umf intel-pti --index-url https://download.pytorch.org/whl/xpu --extra-index-url https://pypi.org/simple --index-strategy unsafe-best-match</code></pre>
+                <p> Now edit the pyproject.toml file to look as follows: </p>
+                <pre  class="code-block"><code>
+[project]
+name = "solar-weather"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11.6"
+dependencies = [
+    "grip>=4.6.2",
+    "intel-cmplr-lib-rt>=2025.0.4",
+    "intel-cmplr-lib-ur>=2025.0.4",
+    "intel-cmplr-lic-rt>=2025.0.4",
+    "intel-pti>=0.10.1",
+    "intel-sycl-rt>=2025.0.4",
+    "jupyter>=1.1.1",
+    "jupyterlab>=4.4.10",
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.4",
+    "pandas>=2.3.3",
+    "pytorch-triton-xpu>=3.3.1",
+    "scipy>=1.16.3",
+    "seaborn>=0.13.2",
+    "tcmlib>=1.2.0",
+    "termcolor>=3.2.0",
+    "torch==2.7.1+xpu",
+    "torchaudio==2.7.1+xpu",
+    "torchvision==0.22.1+xpu",
+    "tqdm>=4.67.1",
+    "umf>=0.9.1",
+]
+
+[tool.uv]
+# optional, but recommended for multi-index setups
+index-strategy = "unsafe-best-match"  
+
+
+[[tool.uv.index]]
+# Name your indexes
+name = "pypi" 
+url = "https://pypi.org/simple"
+default = true
+
+[[tool.uv.index]]
+name = "xpu"
+url = "https://download.pytorch.org/whl/xpu"
+
+# Explicitly pin specific packages to the xpu index
+[tool.uv.sources]
+torch = { index = "xpu" }
+torchvision = { index = "xpu" }
+torchaudio = { index = "xpu" }
+intel-cmplr-lib-rt = { index = "xpu" }
+intel-cmplr-lib-ur = { index = "xpu" }
+intel-cmplr-lic-rt = { index = "xpu" }
+intel-sycl-rt = { index = "xpu" }
+pytorch-triton-xpu = { index = "xpu" }
+tcmlib = { index = "xpu" }
+umf = { index = "xpu" }
+intel-pti = { index = "xpu" }
+                </code></pre>
+                <p>Note how the torch related packages are updated using specific index.</p>
+                <p>Sync to check compatibility:</p>
+                <pre class="code-block"><code>uv sync</code></pre>
+            </div>
+
+            <div class="package-card" id="package3">
+                <h3>other packages </h3>
+                <p>Other necessary packages:</p>
+                <pre><code>
+# simply add them using uv
+uv add numpy pandas scipy matplotlib seaborn termcolor tqdm
+
+# jupyter for editing, can use any other
+uv add jupyter jupyterlab
+
+# generate requirements.txt
+uv pip freeze > requirements.txt
+                </code></pre>
+                 <p>The rest of the packages are updated using the usual index in the pyproject.toml file while only torch related packages use the defined "xpu" index. This can be repeated similarly for a cuda based setup. The uv add command updates the pyproject.toml accordingly.</p>
+            </div>
+
+             <div class="package-card" id="package4">
+                <h3>executing code</h3>
+                <p>Run jupyter as :</p>
+                <pre class="code-block"><code>uv run jupyter lab</code></pre>
+                <p>or a python code as :</p>
+                <pre class="code-block"><code>uv run python mycode.py</code></pre>
+                <p>or activate the environemnt by:</p>
+                <pre class="code-block"><code>source .venv/bin/activate</code></pre>                
+                 <p>and deactivate by:</p>
+                <pre class="code-block"><code>deactivate</code></pre>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
