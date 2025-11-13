@@ -8,4 +8,5 @@ dependencies = [
     "grip>=4.6.2",
     "jupyter>=1.1.1",
     "lab>=8.5",
+    "pandas>=2.3.3",
 ]

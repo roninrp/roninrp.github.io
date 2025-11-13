@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scrollable CSV Table</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
+        .table-container {
+            max-height: 80vh;   /* vertical scroll */
+            overflow-y: auto;
+            overflow-x: auto;   /* horizontal scroll */
+            border: 1px solid #dee2e6;
+            background: white;
+        }
+        table {
+            font-size: 0.9rem;
+            white-space: nowrap;  /* prevents wrapping long text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Large CSV Viewer</h2>
+        <div class="table-container">
+            <table class="dataframe table table-striped table-hover">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Unnamed: 0</th>
+      <th>seg_wise_indx</th>
+      <th>window&gt;=1</th>
+      <th>Model_arch: GCN</th>
+      <th>Model_arch: FC</th>
+      <th>Sup_bckprp_loss</th>
+      <th>Bckprp_loss</th>
+      <th>Pretrain_unlabeled</th>
+      <th>Optimizer</th>
+      <th>Learning rate</th>
+      <th>Weight-decay</th>
+      <th>dropout</th>
+      <th>epochs</th>
+      <th>Train_sup</th>
+      <th>Val_mean_L2/10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.2</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>200</td>
+      <td>0.2170</td>
+      <td>0.2880</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-2</td>
+      <td>exp, alpha=0.7</td>
+      <td>0.2</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>200</td>
+      <td>0.2150</td>
+      <td>0.2903</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>200</td>
+      <td>0.2077</td>
+      <td>0.2680</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-2</td>
+      <td>exp, alpha=0.7</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>200</td>
+      <td>0.2015</td>
+      <td>0.2562</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>183</td>
+      <td>0.1720</td>
+      <td>0.2112</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.7</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>200+</td>
+      <td>0.1683</td>
+      <td>0.2347</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>197</td>
+      <td>0.1774</td>
+      <td>0.2018</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.2 x 2</td>
+      <td>199</td>
+      <td>0.1878</td>
+      <td>0.2437</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>none</td>
+      <td>141</td>
+      <td>0.1860</td>
+      <td>0.2049</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 1</td>
+      <td>161</td>
+      <td>0.1808</td>
+      <td>0.2079</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-64-64</td>
+      <td>Lin: 64-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>192</td>
+      <td>0.1722</td>
+      <td>0.2008</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>191</td>
+      <td>0.1742</td>
+      <td>0.1690</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-1024-512</td>
+      <td>Lin: 512-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>200</td>
+      <td>0.1800</td>
+      <td>0.2270</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 512-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>190</td>
+      <td>0.1678</td>
+      <td>0.1571</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-512-512-256</td>
+      <td>Lin: 512-1024-256-64-2</td>
+      <td>exp, alpha=0.5</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>151</td>
+      <td>0.1847</td>
+      <td>0.1711</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-512-512-256</td>
+      <td>Lin: 512-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>155</td>
+      <td>0.1731</td>
+      <td>0.1633</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>GCN:0.1 x 2, 0.1 x 2</td>
+      <td>179</td>
+      <td>0.1496</td>
+      <td>0.1598</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-512-512-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>GCN:0.1 x 2, 0.1 x 2</td>
+      <td>200</td>
+      <td>0.1749</td>
+      <td>0.2614</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>1</td>
+      <td>2</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>GCN:0.1 x 2, 0.1 x 2</td>
+      <td>14</td>
+      <td>0.3167</td>
+      <td>0.3820</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>1</td>
+      <td>2</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.0001</td>
+      <td>none</td>
+      <td>GCN:0.1 x 2, 0.1 x 2</td>
+      <td>112</td>
+      <td>0.2970</td>
+      <td>0.3979</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>1e-3, ReduceOnPlateau(factor=0.1,patience=3,threshold=0.0001,threshold_mode='rel',cooldown=0)</td>
+      <td>none</td>
+      <td>GCN:0.1 x 2, 0.1 x 2</td>
+      <td>21</td>
+      <td>0.3214</td>
+      <td>0.3521</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7-1024-256-256</td>
+      <td>Lin: 256-1024-256-64-2</td>
+      <td>simple</td>
+      <td>0.1</td>
+      <td>none</td>
+      <td>Adam</td>
+      <td>0.001</td>
+      <td>none</td>
+      <td>0.1 x 2</td>
+      <td>179</td>
+      <td>0.1680</td>
+      <td>0.1753</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>
